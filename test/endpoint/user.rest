@@ -1,0 +1,37 @@
+GET http://127.0.0.1:6465/api/users HTTP/1.1
+
+###
+
+GET http://127.0.0.1:6465/api/users/register HTTP/1.1
+
+###
+
+GET http://127.0.0.1:6465/api/users/login HTTP/1.1
+
+###
+
+# name: String,
+# email: String,
+# username: String,
+# password: String,
+# salt: String,
+
+POST http://127.0.0.1:6465/api/users/register HTTP/1.1
+content-type: application/json
+
+{
+    "name": "john",
+    "email": "john@g.c",
+    "username": "johanesdoe",
+    "password": "12345"
+}
+
+###
+
+POST http://127.0.0.1:6465/api/users/register HTTP/1.1
+content-type: application/json
+
+{
+    "email": "john@g.c",
+    "password": "12345"
+}
