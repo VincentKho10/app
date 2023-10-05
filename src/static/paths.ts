@@ -5,6 +5,11 @@ export const api_paths = {
     users: {
         base: '/users',
         register: '/register',
-        login: '/login'
+        login: '/login',
+        crud: '/CRUD',
+    },
+    roles: {
+        base: '/roles',
+        crud: '/CRUD',
     }
 }

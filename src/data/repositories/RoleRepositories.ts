@@ -22,14 +22,9 @@ export const getAnyRole = async (param: Object): Promise<IRole> => {
 }
 
 export const createRole = async (role: IRole) => {
-    // const saltRounds = randomInt(10, 13);
-    // role.friends = [];
-    // role.chatrooms = [];
-    // const salt = await bcrypt.genSalt(saltRounds);
-    // role.password = await bcrypt.hash(role.password, salt);
     await Role.create(role).catch(err => {
         if (err.code === 11000) {
-            throw new CustomError("Duplicate email address");
+            throw new CustomError("Duplicate role");
         } else {
             console.log({err})
             throw new Error(err.message);

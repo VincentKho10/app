@@ -1,16 +1,17 @@
 import { createUser, deleteUser, getAllUser, getAnyUser, updateUser } from "../../data/repositories/UserRepositories";
 import { createRole, deleteRole, getAllRole, getAnyRole, updateRole } from "../../data/repositories/RoleRepositories";
 import CustomError from "../../static/ErrorStatus";
-import { IUser } from "../../static/IModelType";
+import { IRole, IUser } from "../../static/IModelType";
 
 export async function crudService(
     conf: {
         objtype: string,
         action: string,
         id?: string,
-        body?: IUser
+        body?: IUser | IRole
     }
 ) {
+    let bodvar
     let getAllMethod = null;
     let getOneMethod = null;
     let createMethod = null;
@@ -18,12 +19,14 @@ export async function crudService(
     let deleteMethod = null;
 
     if (conf.objtype === 'user') {
+        bodvar = conf.body as IUser
         getAllMethod = getAllUser;
         getOneMethod = getAnyUser;
         createMethod = createUser;
         updateMethod = updateUser;
         deleteMethod = deleteUser;
     }else if (conf.objtype === 'role') {
+        bodvar = conf.body as IUser
         getAllMethod = getAllRole;
         getOneMethod = getAnyRole;
         createMethod = createRole;
@@ -45,15 +48,14 @@ export async function crudService(
         }
         throw Error();
     } else if (conf.action === 'create') {
-        console.log(conf.body)
         if (conf.body) {
-            return await createMethod(conf.body);
+            return await createMethod(bodvar);
         }else{
             throw new Error();
         }
     } else if (conf.action === 'update') {
         if (conf.id && conf.body) {
-            return updateMethod(conf.id, conf.body);
+            return updateMethod(conf.id, bodvar);
         }
         throw Error();
     } else if (conf.action === 'delete') {
